@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springbootProject.lease.web.admin.mapper.LeaseAgreementMapper">
+    <resultMap id="BaseResultMap" type="com.springbootProject.lease.model.entity.LeaseAgreement">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="identificationNumber" column="identification_number" jdbcType="VARCHAR"/>
+        <result property="apartmentId" column="apartment_id" jdbcType="BIGINT"/>
+        <result property="roomId" column="room_id" jdbcType="BIGINT"/>
+        <result property="leaseStartDate" column="lease_start_date" jdbcType="DATE"/>
+        <result property="leaseEndDate" column="lease_end_date" jdbcType="DATE"/>
+        <result property="leaseTermId" column="lease_term_id" jdbcType="BIGINT"/>
+        <result property="rent" column="rent" jdbcType="DECIMAL"/>
+        <result property="deposit" column="deposit" jdbcType="DECIMAL"/>
+        <result property="paymentTypeId" column="payment_type_id" jdbcType="BIGINT"/>
+        <result property="status" column="status" jdbcType="TINYINT"/>
+        <result property="sourceType" column="source_type" jdbcType="TINYINT"/>
+        <result property="additionalInfo" column="additional_info" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+    </resultMap>
+    <resultMap id="agreementVoMap" type="com.springbootProject.lease.web.admin.vo.agreement.AgreementVo" autoMapping="true">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <association property="apartmentInfo" javaType="com.springbootProject.lease.model.entity.ApartmentInfo" autoMapping="true">
+            <id property="id" column="apartment_id" jdbcType="BIGINT"/>
+            <result property="name" column="apartment_name" jdbcType="VARCHAR"/>
+        </association>
+        <association property="roomInfo" javaType="com.springbootProject.lease.model.entity.RoomInfo" autoMapping="true">
+            <id property="id" column="room_id" jdbcType="BIGINT"/>
+            <result property="roomNumber" column="room_number" jdbcType="VARCHAR"/>
+            <result property="rent" column="room_rent" jdbcType="DECIMAL"/>
+        </association>
+        <association property="leaseTerm" javaType="com.springbootProject.lease.model.entity.LeaseTerm" autoMapping="true">
+            <id property="id" column="lease_term_id" jdbcType="BIGINT"/>
+            <result property="monthCount" column="month_count" jdbcType="INTEGER"/>
+            <result property="unit" column="unit" jdbcType="INTEGER"/>
+        </association>
+        <association property="paymentType" javaType="com.springbootProject.lease.model.entity.PaymentType" autoMapping="true">
+            <id property="id" column="payment_type_id" jdbcType="BIGINT"/>
+            <result property="name" column="payment_type_name" jdbcType="VARCHAR"/>
+            <result property="payMonthCount" column="pay_month_count" jdbcType="INTEGER"/>
+        </association>
+    </resultMap>
+
+    <!--resultType="com.springbootProject.lease.web.admin.vo.agreement.AgreementVo"-->
+    <select id="pageAgreementByQuery" resultMap="agreementVoMap">
+        select la.id,
+        la.phone,
+        la.name,
+        la.identification_number,
+        la.apartment_id,
+        la.room_id,
+        la.lease_start_date,
+        la.lease_end_date,
+        la.lease_term_id,
+        la.rent,
+        la.deposit,
+        la.payment_type_id,
+        la.status,
+        la.source_type,
+        la.additional_info,
+        ri.room_number,
+        ri.rent as room_rent,
+        ri.is_release,
+        ai.name as apartment_name,
+        ai.province_name,
+               ai.province_id,
+        ai.city_name,
+               ai.city_id,
+        ai.district_name,
+               ai.district_id,
+               ai.longitude,
+               ai.latitude,
+        ai.address_detail,
+        ai.phone as apartment_phone,
+        pt.name as payment_type_name,
+        pt.pay_month_count,
+        lt.month_count,
+        lt.unit
+        from lease_agreement as la
+        left join room_info as ri
+        on la.room_id = ri.id
+        and ri.is_deleted = 0
+        left join apartment_info as ai
+        on la.apartment_id = ai.id
+        and ai.is_deleted = 0
+        left join lease_term as lt
+        on la.lease_term_id = lt.id
+        and lt.is_deleted = 0
+        left join payment_type as pt
+        on la.payment_type_id = pt.id
+        and pt.is_deleted = 0
+        <where>
+                la.is_deleted = 0
+            <if test="queryVo.phone != null and queryVo.phone != ''">
+                and la.phone = like concat('%',#{queryVo.phone},'%')
+            </if>
+            <if test="queryVo.name != null and queryVo.name != ''">
+                and la.name like concat('%',#{queryVo.name},'%')
+            </if>
+
+            <if test="queryVo.privinceId != null and queryVo.privinceId != ''">
+                and la.province_id = #{queryVo.privinceId}
+            </if>
+            <if test="queryVo.cityId != null and queryVo.cityId != ''">
+                and la.city_id = #{queryVo.cityId}
+            </if>
+            <if test="queryVo.districtId != null and queryVo.districtId != ''">
+                and la.district_id = #{queryVo.districtId}
+            </if>
+            <if test="queryVo.apartmentId != null and queryVo.apartmentId != ''">
+                and la.apartment_id = #{queryVo.apartmentId}
+            </if>
+            <if test="queryVo.roomNumber != null and queryVo.roomNumber != ''">
+                and la.room_number like concat('%',#{queryVo.roomNumber},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

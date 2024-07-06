@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springbootProject.lease.web.admin.mapper.ViewAppointmentMapper">
+
+    <resultMap id="BaseResultMap" type="com.springbootProject.lease.model.entity.ViewAppointment">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
+            <result property="apartmentId" column="apartment_id" jdbcType="INTEGER"/>
+            <result property="appointmentTime" column="appointment_time" jdbcType="TIMESTAMP"/>
+            <result property="additionalInfo" column="additional_info" jdbcType="VARCHAR"/>
+            <result property="appointmentStatus" column="appointment_status" jdbcType="TINYINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+    </resultMap>
+    <!--定义可重复引用的列名-->
+    <sql id="Base_Column_List">
+        id,user_id,name,
+        phone,apartment_id,appointment_time,
+        additional_info,appointment_status,create_time,
+        update_time,is_deleted
+    </sql>
+    <resultMap id="AppointmentVoMap" type="com.springbootProject.lease.web.admin.vo.appointment.AppointmentVo" autoMapping="true">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <association property="apartmentInfo" javaType="com.springbootProject.lease.model.entity.ApartmentInfo" autoMapping="true">
+           <id property="id" column="apartment_id" jdbcType="BIGINT"/>
+            <result property="name" column="apartment_name" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+    <select id="pageAppointmentByQuery" resultMap="AppointmentVoMap">
+        select
+               va.id,
+               va.user_id,
+               va.name,
+               va.phone,
+               va.appointment_time,
+               va.additional_info,
+               va.appointment_status,
+               ai.id as apartment_id,
+               ai.name as apartment_name,
+               ai.province_id,
+               ai.city_id,
+               ai.district_id,
+               ai.province_name,
+               ai.city_name,
+               ai.district_name,
+               ai.introduction,
+               ai.address_detail,
+               ai.latitude,
+               ai.longitude,
+               ai.is_release
+        from view_appointment as va
+        left join apartment_info as ai
+            on va.apartment_id = ai.id
+            and ai.is_deleted = 0
+        where va.is_deleted = 0
+
+        <if test="appointmentVo.provinceId != null">
+            and ai.province_id = #{appointmentVo.provinceId}
+        </if>
+        <if test="appointmentVo.cityId != null">
+            and ai.city_id = #{appointmentVo.cityId}
+        </if>
+        <if test="appointmentVo.districtId != null">
+            and ai.district_id = #{appointmentVo.districtId}
+        </if>
+
+        <if test="appointmentVo.name != null and appointmentVo.name != ''">
+            and name like concat('%',#{appointmentVo.name},'%')
+        </if>
+        <if test="appointmentVo.phone != null and appointmentVo.phone != ''">
+            and phone like concat('%',#{appointmentVo.phone},'%')
+        </if>
+    </select>
+</mapper>

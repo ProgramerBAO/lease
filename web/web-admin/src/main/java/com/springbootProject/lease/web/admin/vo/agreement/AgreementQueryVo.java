@@ -1,0 +1,24 @@
+package com.springbootProject.lease.web.admin.vo.agreement;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+
+@Data
+@Schema(description = "租约查询实体")
+public class AgreementQueryVo {
+    @Schema(description = "省id")
+    private Long privinceId;
+    @Schema(description = "市id")
+    private Long cityId;
+    @Schema(description = "区id")
+    private Long districtId;
+    @Schema(description = "公寓id")
+    private String apartmentId;
+    @Schema(description = "房间号")
+    private String roomNumber;
+    @Schema(description = "用户姓名")
+    private String name;
+    @Schema(description = "用户手机号")
+    private String phone;
+
+}

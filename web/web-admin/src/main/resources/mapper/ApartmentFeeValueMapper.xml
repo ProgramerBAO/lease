@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springbootProject.lease.web.admin.mapper.ApartmentFeeValueMapper">
+
+    <resultMap id="BaseResultMap" type="com.springbootProject.lease.model.entity.ApartmentFeeValue">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="apartmentId" column="apartment_id" jdbcType="BIGINT"/>
+            <result property="feeValueId" column="fee_value_id" jdbcType="BIGINT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,apartment_id,fee_value_id,
+        create_time,update_time,is_deleted
+    </sql>
+    <select id="selectListByItemTypeAndId" resultType="com.springbootProject.lease.web.admin.vo.apartment.FeeValueVo">
+        select fv.`name` as name,
+               fv.unit,
+               fv.fee_key_id,
+               fk.`name` as fee_key_name
+        from apartment_fee_value as af
+                 left join fee_value as fv
+                           on af.fee_value_id = fv.id
+                               and fv.is_deleted = 0
+                 left join fee_key as fk
+                           on fv.fee_key_id = fk.id
+                               and fk.is_deleted = 0
+        where af.apartment_id = #{id}
+          and af.is_deleted = 0
+    </select>
+</mapper>

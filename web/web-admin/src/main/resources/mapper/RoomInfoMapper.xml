@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springbootProject.lease.web.admin.mapper.RoomInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.springbootProject.lease.model.entity.RoomInfo">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="roomNumber" column="room_number" jdbcType="VARCHAR"/>
+        <result property="rent" column="rent" jdbcType="DECIMAL"/>
+        <result property="apartmentId" column="apartment_id" jdbcType="BIGINT"/>
+        <result property="isRelease" column="is_release" jdbcType="TINYINT"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,room_number,rent,
+        apartment_id,is_release,create_time,
+        update_time,is_deleted
+    </sql>
+
+    <resultMap id="RoomItemVoMap" type="com.springbootProject.lease.web.admin.vo.room.RoomItemVo"
+               autoMapping="true">
+        <id property="id" column="id"/>
+        <association property="apartmentInfo" javaType="com.springbootProject.lease.model.entity.ApartmentInfo"
+        autoMapping="true">
+            <id property="id" column="apartment_id"/>
+            <result property="isRelease" column="is_release"/>
+        </association>
+    </resultMap>
+
+    <select id="pageRoomItemByQuery" resultMap="RoomItemVoMap">
+        select ri.id,
+               ri.room_number,
+               ri.rent,
+               ri.apartment_id,
+               la.room_id is not null as is_check_in,
+               la.lease_end_date,
+               ai.id as apartment_id,
+               ai.name,
+               ai.introduction,
+               ai.district_id,
+               ai.district_name,
+               ai.city_id,
+               ai.city_name,
+               ai.province_id,
+               ai.province_name,
+               ai.address_detail,
+               ai.latitude,
+               ai.longitude,
+               ai.phone,
+               ri.is_release
+        from room_info as ri
+                 left join lease_agreement as la
+                           on ri.id = la.room_id
+                               and la.is_deleted = 0
+            and la.status in (2,5)
+                 left join apartment_info as ai
+                           on ri.apartment_id = ai.id
+                               and ai.is_deleted = 0
+        where ri.is_deleted = 0
+        <where>
+
+            <if test="roomQueryVo.provinceId != null">
+                and ai.province_id = #{roomQueryVo.provinceId}
+            </if>
+            <if test="roomQueryVo.cityId != null">
+                and ai.city= #{roomQueryVo.cityId}
+            </if>
+            <if test="roomQueryVo.districtId != null">
+                and ai.district_id = #{roomQueryVo.districtId}
+            </if>
+            <if test="roomQueryVo.apartmentId != null">
+                and ri.apartment_id = #{roomQueryVo.apartmentId}
+            </if>
+
+        </where>
+    </select>
+</mapper>

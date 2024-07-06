@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springbootProject.lease.web.admin.mapper.AttrKeyMapper">
+	<!-- 定义到 AttrKeyVo的映射关系 -->
+	<resultMap id="BaseResultMap" type="com.springbootProject.lease.web.admin.vo.attr.AttrKeyVo">
+		<id property="id" column="id" />
+		<result property="name" column="key_name" />
+		<collection property="attrValueList" ofType="com.springbootProject.lease.model.entity.AttrValue">
+			<id column="value_id" property="id" />
+			<result column="value_name" property="name" />
+			<result column="key_id" property="attrKeyId" />
+		</collection>
+	</resultMap>
+	<select id="listAttrInfo" resultMap="BaseResultMap">
+		select
+		k.id,
+		k.`name` as key_name,
+		v.id as value_id,
+		v.`name` as value_name,
+		v.attr_key_id as key_id
+		from attr_key as k
+		left join
+		attr_value as v on k.id=v.attr_key_id and v.is_deleted=0
+		WHERE k.is_deleted=0
+		<!--
+		ON后面跟的是连接条件，这个条件用来指定左表和右表中哪些字段应该相等或者满足什么样的逻辑关系，
+		以便把两个表中的相关记录匹配起来。如果根据ON后面的条件在右表中找不到匹配的记录，
+		那么结果集中右表的部分将显示为NULL
+		
+		上面这个语句翻译成中文
+		这段SQL语句的意思是从attr_key表（别名为k）和attr_value表（别名为v）中，按照特定条件检索数据，并通过左连接（LEFT JOIN）将这两个表关联起来。下面是该查询的详细解释：
+		
+		Select部分：指定了想要从查询结果中获取的列：
+		
+		k.id：attr_key表的ID。
+		k.name AS key_name：attr_key表的name列，别名为key_name。
+		v.id AS value_id：attr_value表的ID，别名为value_id。
+		v.name AS value_name：attr_value表的name列，别名为value_name。
+		v.attr_key_id AS key_id：attr_value表中的attr_key_id列，别名为key_id。
+		From部分：指定了查询的主表为attr_key，并给它一个别名k。
+		
+		Left Join部分：
+		
+		表attr_value（别名v）通过k.id = v.attr_key_id这一条件与attr_key表连接。这意味着查询会返回所有attr_key表的记录，即使它们在attr_value表中没有匹配项。
+		连接条件中还包含v.is_deleted = 0，这意味着只包括那些在attr_value表中未被标记为删除（即is_deleted字段值为0）的记录。
+		Where部分：对主表attr_key（别名k）施加了一个过滤条件k.is_deleted = 0，确保只选择那些未被标记为删除的记录。
+		
+		综上所述，整个查询的目的是为了获取所有未被删除的属性键（attr_key）以及它们对应的、同样未被删除的属性值（attr_value），如果某个属性键没有对应的属性值，则该属性键的信息仍会被列出，但与之关联的属性值信息将会是NULL。
+		-->
+	</select>
+</mapper>

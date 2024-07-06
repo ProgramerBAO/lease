@@ -87,7 +87,7 @@ public class ApartmentInfoServiceImpl extends ServiceImpl<ApartmentInfoMapper, A
             graphInfoLambdaQueryWrapper.eq(GraphInfo::getItemType, ItemType.APARTMENT);
             graphInfoService.remove(graphInfoLambdaQueryWrapper);
         }
-        /*新增公寓信息 配套信息也要更新吧*/
+        /*新增公寓信息 配套信息也要更新吧 改掉了else*/
         //1.新增公寓配套列表
         List<Long> facilityInfoIds = apartmentSubmitVo.getFacilityInfoIds();
         ArrayList<ApartmentFacility> apartmentFacilityList = new ArrayList<>();

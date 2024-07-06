@@ -8,7 +8,7 @@ import com.springbootProject.lease.web.admin.vo.graph.GraphVo;
 import java.util.List;
 
 /**
-* @author 86183
+* @author BobShen
 * @description 针对表【graph_info(图片信息表)】的数据库操作Mapper
 * @createDate 2024-06-18 22:50:27
 * @Entity generator.domain.GraphInfo

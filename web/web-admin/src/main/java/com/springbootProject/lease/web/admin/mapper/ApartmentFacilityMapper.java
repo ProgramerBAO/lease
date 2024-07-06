@@ -7,7 +7,7 @@ import com.springbootProject.lease.model.entity.FacilityInfo;
 import java.util.List;
 
 /**
-* @author 86183
+* @author BobShen
 * @description 针对表【apartment_facility(公寓&配套关联表)】的数据库操作Mapper
 * @createDate 2024-06-18 22:50:27
 * @Entity generator.domain.ApartmentFacility

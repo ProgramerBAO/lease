@@ -7,7 +7,7 @@ import com.springbootProject.lease.web.admin.service.RoomPaymentTypeService;
 import org.springframework.stereotype.Service;
 
 /**
-* @author 86183
+* @author BobShen
 * @description 针对表【room_payment_type(房间&支付方式关联表)】的数据库操作Service实现
 * @createDate 2024-06-18 22:50:28
 */

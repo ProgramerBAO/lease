@@ -7,7 +7,7 @@ import com.springbootProject.lease.web.admin.service.SystemPostService;
 import org.springframework.stereotype.Service;
 
 /**
-* @author 86183
+* @author BobShen
 * @description 针对表【system_post(岗位信息表)】的数据库操作Service实现
 * @createDate 2024-06-18 22:50:28
 */

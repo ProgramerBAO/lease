@@ -9,7 +9,7 @@ import com.springbootProject.lease.web.admin.vo.apartment.ApartmentQueryVo;
 import com.springbootProject.lease.web.admin.vo.apartment.ApartmentSubmitVo;
 
 /**
-* @author 86183
+* @author BobShen
 * @description 针对表【apartment_info(公寓信息表)】的数据库操作Service
 * @createDate 2024-06-18 22:50:27
 */

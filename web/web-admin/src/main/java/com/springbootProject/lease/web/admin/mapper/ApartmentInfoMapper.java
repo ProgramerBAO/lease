@@ -13,7 +13,7 @@ import com.springbootProject.lease.web.admin.vo.apartment.ApartmentQueryVo;
 * @Entity generator.domain.ApartmentInfo
 */
 public interface ApartmentInfoMapper extends BaseMapper<ApartmentInfo> {
-
+    // queryVo在这里定义了
     IPage<ApartmentItemVo> pageApartmentListByQuery(IPage<ApartmentItemVo> page, ApartmentQueryVo queryVo);
 }
 

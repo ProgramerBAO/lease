@@ -25,8 +25,8 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id
-        ,name,introduction,
+        id,
+        name,introduction,
         district_id,district_name,city_id,
         city_name,province_id,province_name,
         address_detail,latitude,longitude,
@@ -67,6 +67,7 @@
               from apartment_info
             <where>
                 is_deleted = 0
+                # queryVo在com/springbootProject/lease/web/admin/mapper/ApartmentInfoMapper.java中定义了
                 <if test="queryVo.provinceId != null">
                     and province_id = #{queryVo.provinceId}
                 </if>

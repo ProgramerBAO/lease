@@ -1,11 +1,10 @@
 package com.springbootProject.lease.common.mybatisplus;
 
-import java.util.Date;
-
+import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
-import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import java.util.Date;
 
 @Component
 public class MybatisMetaObjectHandler implements MetaObjectHandler{
@@ -19,5 +18,5 @@ public class MybatisMetaObjectHandler implements MetaObjectHandler{
     public void updateFill(MetaObject metaObject) {
         this.strictUpdateFill(metaObject, "updateTime", Date.class, new Date());
     }
-    
+
 }

@@ -39,9 +39,12 @@ public class ApartmentController {
 
     @Operation(summary = "根据条件分页查询公寓列表")
     @GetMapping("pageItem")
-    public Result<IPage<ApartmentItemVo>> pageItem(@RequestParam long current,@RequestParam long size,@ParameterObject ApartmentQueryVo apartmentQueryVo) {
-        IPage<ApartmentItemVo> page = new Page<>(current,size);
-        IPage<ApartmentItemVo> result=apartmentInfoService.pageApartmentListByQuery(page,apartmentQueryVo);
+    public Result<IPage<ApartmentItemVo>> pageItem(@RequestParam long current,
+                                                   @RequestParam long size,
+                                                   @ParameterObject ApartmentQueryVo apartmentQueryVo) {
+        IPage<ApartmentItemVo> page = new Page<>(current, size); // 创建分页对象
+        // apartmentQueryVo 更像是一种查询条件
+        IPage<ApartmentItemVo> result = apartmentInfoService.pageApartmentListByQuery(page, apartmentQueryVo);
         return Result.ok(result);
     }
 

@@ -144,10 +144,12 @@ public class ApartmentInfoServiceImpl extends ServiceImpl<ApartmentInfoMapper, A
     }
 
     @Override
-    public IPage<ApartmentItemVo> pageApartmentListByQuery(IPage<ApartmentItemVo> page, ApartmentQueryVo apartmentQueryVo) {
+    public IPage<ApartmentItemVo> pageApartmentListByQuery(IPage<ApartmentItemVo> page,
+                                                           ApartmentQueryVo apartmentQueryVo) {
         return apartmentInfoMapper.pageApartmentListByQuery(page, apartmentQueryVo);
     }
 
+    // 因为这里的业务场景比较复杂连表查询不容易 所以采用分表查询聚合结果的方案
     @Override
     public ApartmentDetailVo getApartmentDetailById(Long id) {
         //1.查询ApartmentInfo
@@ -165,6 +167,7 @@ public class ApartmentInfoServiceImpl extends ServiceImpl<ApartmentInfoMapper, A
         List<FeeValueVo> feeValueVoList = apartmentFeeValueMapper.selectListByItemTypeAndId(id);
 
         ApartmentDetailVo adminApartmentDetailVo = new ApartmentDetailVo();
+        // 拷贝apartmentInfo 到adminApartmentDetailVo
         BeanUtils.copyProperties(apartmentInfo, adminApartmentDetailVo);
         adminApartmentDetailVo.setGraphVoList(graphVoList);
         adminApartmentDetailVo.setFacilityInfoList(facilityInfoList);

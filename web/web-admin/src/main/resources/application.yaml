@@ -41,6 +41,10 @@ minio:
   secretKey: minio123
   bucket-name: hello-minio
 
+#
+springdoc:
+  default-flat-param-object: true # 调试页面默认展开参数
+
 ## springdoc-openapi项目配置
 #springdoc:
 #  swagger-ui:
@@ -57,4 +61,5 @@ minio:
 #knife4j:
 #  enable: true
 #  setting:
+
 #    language: zh_cn

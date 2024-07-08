@@ -33,6 +33,7 @@
         phone,is_release,create_time,
         update_time,is_deleted
     </sql>
+    <!--因为使用了分页插件 所以不需要再考虑分页插件只需要想着怎么把数据查出来就行-->
     <select id="pageApartmentListByQuery" resultType="com.springbootProject.lease.web.admin.vo.ApartmentItemVo">
         select ai.id,
                ai.name,
@@ -80,14 +81,14 @@
             </where>
              ) ai
                  left join
-             (select apartment_id, count(*) cnt
+             (select apartment_id, count(*) cnt # 统计房间总数
               from room_info
               where is_deleted = 0
                 and is_release = 1
               group by apartment_id) tc
              on ai.id = tc.apartment_id
                  left join
-             (select apartment_id, count(*) cnt
+             (select apartment_id, count(*) cnt # 统计空置房间数
               from lease_agreement
               where is_deleted = 0
                 and status in (2, 5)

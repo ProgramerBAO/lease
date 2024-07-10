@@ -103,8 +103,8 @@
                 and la.name like concat('%',#{queryVo.name},'%')
             </if>
 
-            <if test="queryVo.privinceId != null and queryVo.privinceId != ''">
-                and la.province_id = #{queryVo.privinceId}
+            <if test="queryVo.provinceId != null and queryVo.provinceId != ''">
+                and la.province_id = #{queryVo.provinceId}
             </if>
             <if test="queryVo.cityId != null and queryVo.cityId != ''">
                 and la.city_id = #{queryVo.cityId}

@@ -4,15 +4,15 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import com.springbootProject.lease.common.result.Result;
 import com.springbootProject.lease.model.entity.UserInfo;
 import com.springbootProject.lease.model.enums.BaseStatus;
 import com.springbootProject.lease.web.admin.service.UserInfoService;
 import com.springbootProject.lease.web.admin.vo.user.UserInfoQueryVo;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
-import org.springdoc.api.annotations.ParameterObject;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -25,7 +25,9 @@ public class UserController {
 
     @Operation(summary = "根据条件分页查询用户信息")
     @GetMapping ("page")
-    public Result<IPage<UserInfo>> pageUserByQuery(@RequestParam Long current,@RequestParam Long size,@ParameterObject UserInfoQueryVo queryVo) {
+    public Result<IPage<UserInfo>> pageUserByQuery(@RequestParam Long current,
+                                                   @RequestParam Long size,
+                                                   @ParameterObject UserInfoQueryVo queryVo) {
         IPage<UserInfo> page=new Page<>(current,size);
         LambdaQueryWrapper<UserInfo> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.like(queryVo.getPhone()!=null,UserInfo::getPhone,queryVo.getPhone());

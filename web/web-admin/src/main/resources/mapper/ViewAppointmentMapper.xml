@@ -70,10 +70,10 @@
         </if>
 
         <if test="appointmentVo.name != null and appointmentVo.name != ''">
-            and name like concat('%',#{appointmentVo.name},'%')
+            and ai.name like concat('%',#{appointmentVo.name},'%')
         </if>
         <if test="appointmentVo.phone != null and appointmentVo.phone != ''">
-            and phone like concat('%',#{appointmentVo.phone},'%')
+            and ai.phone like concat('%',#{appointmentVo.phone},'%')
         </if>
     </select>
 </mapper>

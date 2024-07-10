@@ -14,7 +14,7 @@ import com.springbootProject.lease.model.enums.BaseStatus;
 import com.springbootProject.lease.web.admin.service.SystemUserService;
 import com.springbootProject.lease.web.admin.vo.systemUser.SystemUserItemVo;
 import com.springbootProject.lease.web.admin.vo.systemUser.SystemUserQueryVo;
-import org.springdoc.api.annotations.ParameterObject;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -28,7 +28,9 @@ public class SystemUserController {
     //1.根据条件分页查询用户信息
     @GetMapping("getPageList")
     @Operation(summary = "分页查询用户信息")
-    public Result<IPage<SystemUserItemVo>> getPageList(@RequestParam Integer current, @RequestParam Integer size, @ParameterObject SystemUserQueryVo queryVo) {
+    public Result<IPage<SystemUserItemVo>> getPageList(@RequestParam Integer current,
+                                                       @RequestParam Integer size,
+                                                       @ParameterObject SystemUserQueryVo queryVo) {
         IPage<SystemUser> page = new Page<>(current, size);
         IPage<SystemUserItemVo> list=systemUserService.getPageListByQuery(page,queryVo);
         return Result.ok(list);

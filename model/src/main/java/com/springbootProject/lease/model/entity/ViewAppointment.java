@@ -2,11 +2,13 @@ package com.springbootProject.lease.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import com.springbootProject.lease.model.enums.AppointmentStatus;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serial;
 import java.util.Date;
 
 /**
@@ -51,6 +53,7 @@ public class ViewAppointment extends BaseEntity {
      */
     @Schema(description = "预约时间")
     @TableField(value = "appointment_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8") // 指定日期格式
     private Date appointmentTime;
 
     /**
@@ -67,6 +70,7 @@ public class ViewAppointment extends BaseEntity {
     @TableField(value = "appointment_status")
     private AppointmentStatus appointmentStatus;
 
+    @Serial
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

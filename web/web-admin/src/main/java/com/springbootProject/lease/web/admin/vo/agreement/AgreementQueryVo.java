@@ -7,7 +7,7 @@ import lombok.Data;
 @Schema(description = "租约查询实体")
 public class AgreementQueryVo {
     @Schema(description = "省id")
-    private Long privinceId;
+    private Long provinceId;
     @Schema(description = "市id")
     private Long cityId;
     @Schema(description = "区id")

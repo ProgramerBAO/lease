@@ -2,6 +2,9 @@ server:
   port: 8082
 
 spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss # 全局指定日期格式
+    time-zone: GMT+8 # 时区
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://localhost:3306/lease?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2b8
@@ -21,7 +24,7 @@ spring:
       port: 6379
       database: 0
   servlet:
-    multipart:  # 文件上传配置
+    multipart: # 文件上传配置
       enabled: true # 是否开启文件上传
       max-file-size: 10MB # 文件最大值
       max-request-size: 10MB # 请求最大值
@@ -41,12 +44,10 @@ minio:
   secretKey: minio123
   bucket-name: hello-minio
 
-#
-springdoc:
-  default-flat-param-object: true # 调试页面默认展开参数
 
 ## springdoc-openapi项目配置
-#springdoc:
+springdoc:
+  default-flat-param-object: true # 调试页面默认展开参数
 #  swagger-ui:
 #    path: /swagger-ui.html
 #    tags-sorter: alpha
@@ -58,8 +59,7 @@ springdoc:
 #      paths-to-match: '/**'
 #      packages-to-scan: com.xiaominfo.knife4j.demo.web
 ## knife4j的增强配置，不需要增强可以不配
-#knife4j:
-#  enable: true
-#  setting:
-
-#    language: zh_cn
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn

@@ -84,12 +84,12 @@
         </dependency>
 
         <!--再添加一个jar 解决 "No OpenAPI resource found for group: swagger-config https://doc.xiaominfo.com/docs/faq/v4/knife4j-no-openapi-->
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <!--保持版本与Knife4j v4.0的版本一致，避免jar包冲突，因为Knife4j-v4.0.0版本依赖的springdoc版本是1.6.9 -->
-            <version>${ui.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springdoc</groupId>-->
+<!--            <artifactId>springdoc-openapi-ui</artifactId>-->
+<!--            &lt;!&ndash;保持版本与Knife4j v4.0的版本一致，避免jar包冲突，因为Knife4j-v4.0.0版本依赖的springdoc版本是1.6.9 &ndash;&gt;-->
+<!--            <version>${ui.version}</version>-->
+<!--        </dependency>-->
 
         <!--JWT登录认证相关-->
         <!--官方文档：https://github.com/jwtk/jjwt#install-jdk-maven -->

@@ -2,7 +2,7 @@ package com.springbootProject.lease.web.admin.custom.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 
-import org.springdoc.core.GroupedOpenApi;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -37,19 +37,20 @@ public class Knife4jConfiguration {
     @Bean
     public GroupedOpenApi loginAPI() {
 
-        return GroupedOpenApi.builder().group("后台登录管理").
-                pathsToMatch(
+        return GroupedOpenApi.builder()
+                .group("后台登录管理")
+                .pathsToMatch(
                         "/admin/login/**",
                         "/admin/info"
-                ).
-                build();
+                ).build();
     }
 
     @Bean
     public GroupedOpenApi apartmentAPI() {
 
-        return GroupedOpenApi.builder().group("公寓信息管理").
-                pathsToMatch(
+        return GroupedOpenApi.builder()
+                .group("公寓信息管理")
+                .pathsToMatch(
                         "/admin/apartment/**",
                         "/admin/room/**",
                         "/admin/label/**",
@@ -65,8 +66,9 @@ public class Knife4jConfiguration {
 
     @Bean
     public GroupedOpenApi leaseAPI() {
-        return GroupedOpenApi.builder().group("租赁信息管理").
-                pathsToMatch(
+        return GroupedOpenApi.builder()
+                .group("租赁信息管理")
+                .pathsToMatch(
                         "/admin/appointment/**",
                         "/admin/agreement/**"
                 ).build();
@@ -74,8 +76,9 @@ public class Knife4jConfiguration {
 
     @Bean
     public GroupedOpenApi userAPI() {
-        return GroupedOpenApi.builder().group("平台用户管理").
-                pathsToMatch(
+        return GroupedOpenApi.builder()
+                .group("平台用户管理")
+                .pathsToMatch(
                         "/admin/user/**"
                 ).build();
     }

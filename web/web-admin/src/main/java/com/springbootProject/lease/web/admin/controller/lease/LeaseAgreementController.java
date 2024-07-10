@@ -3,17 +3,17 @@ package com.springbootProject.lease.web.admin.controller.lease;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import com.springbootProject.lease.common.result.Result;
 import com.springbootProject.lease.model.entity.LeaseAgreement;
 import com.springbootProject.lease.model.enums.LeaseStatus;
 import com.springbootProject.lease.web.admin.service.LeaseAgreementService;
 import com.springbootProject.lease.web.admin.vo.agreement.AgreementQueryVo;
 import com.springbootProject.lease.web.admin.vo.agreement.AgreementVo;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
-import org.springdoc.api.annotations.ParameterObject;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 
 

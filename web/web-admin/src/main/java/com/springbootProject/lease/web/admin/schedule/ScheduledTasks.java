@@ -16,11 +16,13 @@ public class ScheduledTasks {
     @Resource
     private LeaseAgreementService leaseAgreementService;
 
-    @Scheduled(cron = "0 03 17 * * ?")
+    /**
+     * @discription: 检查租约状态是否到期 实现方式是将租约的到期时间与当前时间对比,检查是否过期
+     */
+    @Scheduled(cron = "* 30 17 * * ?") // 每天17:03:00执行
     public void checkLeaseStatus() {
         System.out.println("检查租约状态");
         Date now = new Date();
-
         LambdaUpdateWrapper<LeaseAgreement> updateWrapper = new LambdaUpdateWrapper<>();
         updateWrapper.set(LeaseAgreement::getStatus, LeaseStatus.EXPIRED)
                 .in(LeaseAgreement::getStatus, LeaseStatus.SIGNED,LeaseStatus.WITHDRAWING)

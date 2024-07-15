@@ -5,11 +5,13 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import com.springbootProject.lease.model.enums.BaseStatus;
+import lombok.EqualsAndHashCode;
 
 /**
  * 用户信息表
  * @TableName user_info
  */
+@EqualsAndHashCode(callSuper = true)
 @TableName(value ="user_info")
 @Data
 @Schema(description = "用户信息表")
@@ -25,7 +27,7 @@ public class UserInfo extends BaseEntity {
      * 密码
      */
     @Schema(description = "密码")
-    @TableField(value = "password",select = false)
+    @TableField(value = "password",select = false) // 不返回给前端
     private String password;
 
     /**

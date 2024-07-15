@@ -24,22 +24,24 @@ public class UserController {
     private UserInfoService userInfoService;
 
     @Operation(summary = "根据条件分页查询用户信息")
-    @GetMapping ("page")
+    @GetMapping("page")
     public Result<IPage<UserInfo>> pageUserByQuery(@RequestParam Long current,
                                                    @RequestParam Long size,
                                                    @ParameterObject UserInfoQueryVo queryVo) {
-        IPage<UserInfo> page=new Page<>(current,size);
+        Page<UserInfo> page = new Page<>(current, size);
         LambdaQueryWrapper<UserInfo> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.like(queryVo.getPhone()!=null,UserInfo::getPhone,queryVo.getPhone());
-        queryWrapper.eq(queryVo.getStatus()!=null,UserInfo::getStatus,queryVo.getStatus());
+        queryWrapper.like(queryVo.getPhone() != null, UserInfo::getPhone, queryVo.getPhone());
+        queryWrapper.eq(queryVo.getStatus() != null, UserInfo::getStatus, queryVo.getStatus());
         IPage<UserInfo> list = userInfoService.page(page, queryWrapper);
         return Result.ok(list);
     }
+
     @Operation(summary = "根据Id修改用户状态")
     @PutMapping("updateStatusById")
-    public Result updateStatusById(@RequestParam Long id,@RequestParam BaseStatus status) {
+    public Result updateStatusById(@RequestParam Long id,
+                                   @RequestParam BaseStatus status) {
         LambdaUpdateWrapper<UserInfo> updateWrapper = new LambdaUpdateWrapper<>();
-        updateWrapper.eq(UserInfo::getId,id).set(UserInfo::getStatus,status);
+        updateWrapper.eq(UserInfo::getId, id).set(UserInfo::getStatus, status);
         userInfoService.update(updateWrapper);
         return Result.ok();
     }

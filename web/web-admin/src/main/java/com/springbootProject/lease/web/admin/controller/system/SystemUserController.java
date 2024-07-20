@@ -46,6 +46,7 @@ public class SystemUserController {
     @Operation(summary = "保存或更新用户信息")
     @PostMapping("saveOrUpdate")
     public Result saveOrUpdate(@RequestBody SystemUser systemUser){
+        //密码加密
         if(systemUser.getPassword()!=null){
             systemUser.setPassword(DigestUtils.md5Hex(systemUser.getPassword()));
         }
@@ -73,8 +74,8 @@ public class SystemUserController {
     @PostMapping("updateStatusById")
     public Result updateStatusById(@RequestParam BaseStatus status,@RequestParam Long id){
         LambdaUpdateWrapper<SystemUser> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
-        lambdaUpdateWrapper.set(SystemUser::getStatus,status);
         lambdaUpdateWrapper.eq(SystemUser::getId,id);
+        lambdaUpdateWrapper.set(SystemUser::getStatus,status);
         systemUserService.update(lambdaUpdateWrapper);
         return Result.ok();
     }

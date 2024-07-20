@@ -35,17 +35,25 @@ public class SystemUserServiceImpl extends ServiceImpl<SystemUserMapper, SystemU
         return systemUserMapper.getPageListByQuery(page,queryVo);
     }
 
+    /**
+     * SystemUserItemVo继承了 SystemUser
+     * 因此可以直接赋值,我们可以把SystemUser当成SystemUserItemVo的基类
+     * 再细化一下 SystemUserItemVo其实就是SystemUser和SystemPost的联合查询结果
+     * 所以我们可以先根据用ID查询SystemUser 然后根据SystemUser的postId查询SystemPost
+     * 两者结果合并 组成最终结果
+     */
     @Override
     public SystemUserItemVo getSystemUserById(Long id) {
+
         SystemUserItemVo systemUserItemVo = new SystemUserItemVo();
+        // SystemUser systemUser = systemUserMapper.selectById(id); 和下面的等价
         SystemUser systemUser = super.getById(id);
 
         SystemPost systemPost = systemPostMapper.selectById(systemUser.getPostId());
 
-        if (systemUser != null){
-            BeanUtils.copyProperties(systemUser,systemUserItemVo);
-            systemUserItemVo.setPostName(systemPost.getName());
-        }
+        // 复制属性
+        BeanUtils.copyProperties(systemUser, systemUserItemVo);
+        systemUserItemVo.setPostName(systemPost.getName());
         return systemUserItemVo;
     }
 }

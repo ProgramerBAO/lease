@@ -17,7 +17,6 @@ import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 
 
-
 @RestController
 @RequestMapping("/admin/agreement")
 @Tag(name = "租赁协议管理")
@@ -32,8 +31,8 @@ public class LeaseAgreementController {
     public Result<IPage<AgreementVo>> page(@Schema(description = "当前页") Long current,
                                            @Schema(description = "每页大小") Long size,
                                            @Schema(description = "查询条件") @ParameterObject AgreementQueryVo queryVo) {
-        IPage<AgreementVo> page = new Page<>(current,size);
-        IPage<AgreementVo> result=leaseAgreementService.pageAgreementByQuery(page, queryVo);
+        IPage<AgreementVo> page = new Page<>(current, size);
+        IPage<AgreementVo> result = leaseAgreementService.pageAgreementByQuery(page, queryVo);
         return Result.ok(result);
     }
 
@@ -44,16 +43,16 @@ public class LeaseAgreementController {
         LeaseAgreement leaseAgreement = leaseAgreementService.getById(id);
         LeaseStatus status = leaseAgreement.getStatus();
         if (status.getCode().equals(1)) {//1
-            return Result.fail(500,"尚未退租不能删除");
-        }else if(status.getCode().equals(2)){//2
-            return Result.fail(500,"尚未退租不能删除");
-        }else if(status.getCode().equals(4)){//4
-            return Result.fail(500,"尚未退租不能删除");
-        }else if(status.getCode().equals(5)){//5
-            return Result.fail(500,"尚未退租不能删除");
-        }else if(status.getCode().equals(7)){//7
-            return Result.fail(500,"尚未退租不能删除");
-        }else{
+            return Result.fail(500, "尚未退租不能删除");
+        } else if (status.getCode().equals(2)) {//2
+            return Result.fail(500, "尚未退租不能删除");
+        } else if (status.getCode().equals(4)) {//4
+            return Result.fail(500, "尚未退租不能删除");
+        } else if (status.getCode().equals(5)) {//5
+            return Result.fail(500, "尚未退租不能删除");
+        } else if (status.getCode().equals(7)) {//7
+            return Result.fail(500, "尚未退租不能删除");
+        } else {
             leaseAgreementService.removeById(id);
             return Result.ok();
         }
@@ -63,9 +62,10 @@ public class LeaseAgreementController {
     @Operation(summary = "根据Id查询租赁协议")
     @GetMapping("getById/{id}")
     public Result<AgreementVo> getById(@Schema(description = "协议Id") @PathVariable Long id) {
-        AgreementVo agreementVo=leaseAgreementService.getAgreementById(id);
+        AgreementVo agreementVo = leaseAgreementService.getAgreementById(id);
         return Result.ok(agreementVo);
     }
+
     //4.保存或新增租赁协
     @Operation(summary = "保存或新增租赁协议")
     @PostMapping("saveOrUpdate")
@@ -73,6 +73,7 @@ public class LeaseAgreementController {
         leaseAgreementService.saveOrUpdate(leaseAgreement);
         return Result.ok();
     }
+
     //5.根据Id更新租赁协议状态
     @Operation(summary = "根据Id更新租赁协议状态")
     @PutMapping("updateStatusById")

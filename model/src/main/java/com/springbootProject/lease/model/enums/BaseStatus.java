@@ -7,8 +7,8 @@ import lombok.AllArgsConstructor;
 @Getter
 @AllArgsConstructor
 public enum BaseStatus {
-	ABLE(1, "启用"),
-	ENABLE(0, "禁用");
+	ENABLE(1, "启用"),
+	DISABLE(0, "禁用");
 
 	@EnumValue
 	@JsonValue

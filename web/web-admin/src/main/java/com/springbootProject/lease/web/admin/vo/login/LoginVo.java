@@ -7,7 +7,7 @@ import lombok.Data;
 @Schema(description = "后台管理系统登录请求实体")
 public class LoginVo {
     @Schema(description = "用户名")
-    private String usename;
+    private String username;
     @Schema(description = "密码")
     private String password;
     @Schema(description = "验证码code")

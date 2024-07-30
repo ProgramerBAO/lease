@@ -31,7 +31,7 @@ public class PaymentTypeController {
     @Operation(summary = "根据房间id获取可选支付方式列表")
     @GetMapping("listByRoomId")
     public Result<List<PaymentType>> listByRoomId(@RequestParam Long roomId){
-
-        return Result.ok();
+        List<PaymentType> list = paymentTypeService.listPaymentByRoomId(roomId);
+        return Result.ok(list);
     }
 }

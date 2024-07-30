@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springbootProject.lease.web.app.mapper.GraphInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.springbootProject.lease.model.entity.GraphInfo">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="itemType" column="item_type" jdbcType="TINYINT"/>
+            <result property="itemId" column="item_id" jdbcType="BIGINT"/>
+            <result property="url" column="url" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="isDeleted" column="is_deleted" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,item_type,
+        item_id,url,create_time,
+        update_time,is_deleted
+    </sql>
+    <select id="selectListByItemTypeAndId" resultType="com.springbootProject.lease.web.app.vo.graph.GraphVo">
+        select `name`,`url`
+        from graph_info
+        where is_deleted = 0
+        and item_type = #{apartment}
+        and item_id = #{id}
+    </select>
+    <select id="getGraphByRoomId" resultType="com.springbootProject.lease.web.app.vo.graph.GraphVo">
+        select id, name,item_type,item_id,url from graph_info where item_type=2 and item_id=#{id}
+    </select>
+
+</mapper>

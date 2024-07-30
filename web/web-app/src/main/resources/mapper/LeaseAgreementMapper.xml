@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springbootProject.lease.web.app.mapper.LeaseAgreementMapper">
+
+    <resultMap id="AgreementItemVoMap" type="com.springbootProject.lease.web.app.vo.agreement.AgreementItemVo" autoMapping="true">
+        <id column="id" property="id"/>
+        <collection property="roomGraphVoList" ofType="com.springbootProject.lease.web.app.vo.graph.GraphVo" autoMapping="true" column="room_id" select="listGraphVoByRoomId"/>
+    </resultMap>
+    <select id="listAgreeVoByPhone" resultMap="AgreementItemVoMap">
+        select
+            la.id,
+            la.lease_start_date,
+            la.lease_end_date,
+            la.rent,
+            la.payment_type_id,
+            la.status as lease_status,
+            la.source_type,
+            ri.id room_id,
+            ri.room_number,
+            ai.name apartment_name
+        from lease_agreement as la
+        left join room_info as ri
+        on la.room_id=ri.id and ri.is_deleted=0
+        left join apartment_info as ai
+        on ri.apartment_id=ai.id and ai.is_deleted=0
+        where la.is_deleted=0 and la.phone=#{username}
+    </select>
+
+    <select id="listGraphVoByRoomId" resultType="com.springbootProject.lease.web.app.vo.graph.GraphVo">
+        select
+            id,
+            name,
+            item_type,
+            item_id,
+            url
+        from graph_info
+        where is_deleted=0 and item_type=2 and item_id=#{room_id}
+    </select>
+</mapper>

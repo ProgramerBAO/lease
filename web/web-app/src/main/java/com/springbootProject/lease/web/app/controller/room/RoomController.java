@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "根据条件查询房间分页列表")
+@Tag(name = "房间信息")
 @RestController
 @RequestMapping("/app/room")
 public class RoomController {

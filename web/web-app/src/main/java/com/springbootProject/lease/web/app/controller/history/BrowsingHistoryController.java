@@ -26,7 +26,7 @@ public class BrowsingHistoryController {
     @Operation(summary = "分页查询用户浏览历史")
     @GetMapping("pageItemRoom")
     public Result<IPage<HistoryItemVo>> pageItemRoom(@RequestParam Long current, @RequestParam Long size){
-        IPage<HistoryItemVo> page=new Page<>(current,size);
+        IPage<HistoryItemVo> page=new Page<>(current,size); // 创建分页对象
         Long userId = LoginUserHolder.getLoginUser().getUserId();
         IPage<HistoryItemVo> historyItemVoIPage=browsingHistoryService.pageHistoryItemByUserId(page,userId);
         return Result.ok(historyItemVoIPage);

@@ -28,7 +28,7 @@ public class BrowsingHistoryServiceImpl extends ServiceImpl<BrowsingHistoryMappe
     @Override
     public IPage<HistoryItemVo> pageHistoryItemByUserId(IPage<HistoryItemVo> page, Long userId) {
 
-        return browsingHistoryMapper.pageHistoryItmeByUserId(page,userId);
+        return browsingHistoryMapper.pageHistoryItemByUserId(page,userId);
     }
     @Async
     @Override

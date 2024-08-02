@@ -9,33 +9,35 @@
         <association property="apartmentInfo" autoMapping="true" javaType="com.springbootProject.lease.model.entity.ApartmentInfo">
             <id column="apartment_id" property="id"/>
         </association>
-        <collection property="graphVoList" ofType="com.springbootProject.lease.web.app.vo.graph.GraphVo" autoMapping="true" select="selectGraphVoListByRoomId" column="id"/>
-        <collection property="labelInfoList" ofType="com.springbootProject.lease.model.entity.LabelInfo" autoMapping="true" select="selectLabelInfoListByRoomId" column="id"/>
+        <collection property="graphVoList" ofType="com.springbootProject.lease.web.app.vo.graph.GraphVo"
+                    autoMapping="true" select="selectGraphVoListByRoomId" column="id"/>
+        <collection property="labelInfoList" ofType="com.springbootProject.lease.model.entity.LabelInfo"
+                    autoMapping="true" select="selectLabelInfoListByRoomId" column="id"/>
     </resultMap>
 
     <select id="pageRoomItemByQuery" resultMap="RoomItemVoMap">
-        select
-            ri.id,
-            ri.room_number,
-            ri.rent,
-            ai.id apartment_id,
-            ai.name,
-            ai.introduction,
-            ai.district_id,
-            ai.district_name,
-            ai.city_id,
-            ai.city_name,
-            ai.province_id,
-            ai.province_name,
-            ai.address_detail,
-            ai.latitude,
-            ai.longitude,
-            ai.phone,
-            ai.is_release
+        select ri.id,
+               ri.room_number,
+               ri.rent,
+               ai.id,
+               apartment_id,
+               ai.name,
+               ai.introduction,
+               ai.district_id,
+               ai.district_name,
+               ai.city_id,
+               ai.city_name,
+               ai.province_id,
+               ai.province_name,
+               ai.address_detail,
+               ai.latitude,
+               ai.longitude,
+               ai.phone,
+               ai.is_release
         from room_info as ri
-        left join apartment_info as ai
-        on ri.apartment_id=ai.id
-        and ai.is_deleted=0
+                 left join apartment_info as ai
+                           on ri.apartment_id = ai.id
+                               and ai.is_deleted = 0
         <where>
             ri.is_deleted = 0
             and ri.is_release=1
@@ -54,7 +56,8 @@
                 and (ri.rent &lt;= #{queryVo.maxRent} and ri.rent &gt;= #{queryVo.minRent})
             </if>
             <if test="queryVo.paymentTypeId!=null">
-                and ri.id in (select room_id from room_payment_type where is_deleted=0 and payment_type_id=#{queryVo.paymentTypeId})
+                and ri.id in (select room_id from room_payment_type where is_deleted=0 and
+                payment_type_id=#{queryVo.paymentTypeId})
             </if>
         </where>
 

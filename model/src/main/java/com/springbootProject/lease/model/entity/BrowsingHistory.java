@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serial;
 import java.util.Date;
 
 /**
@@ -30,6 +31,7 @@ public class BrowsingHistory extends BaseEntity {
      */
     private Date browseTime;
 
+    @Serial
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 

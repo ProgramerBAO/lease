@@ -13,7 +13,7 @@ import com.springbootProject.lease.web.app.vo.history.HistoryItemVo;
 */
 public interface BrowsingHistoryMapper extends BaseMapper<BrowsingHistory> {
 
-    IPage<HistoryItemVo> pageHistoryItmeByUserId(IPage<HistoryItemVo> page, Long userId);
+    IPage<HistoryItemVo> pageHistoryItemByUserId(IPage<HistoryItemVo> page, Long userId);
 }
 
 

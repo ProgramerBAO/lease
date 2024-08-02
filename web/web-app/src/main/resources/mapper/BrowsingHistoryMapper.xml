@@ -22,30 +22,37 @@
 
 
     <resultMap id="HistoryItemVoMap" type="com.springbootProject.lease.web.app.vo.history.HistoryItemVo" autoMapping="true">
-        <id property="id" column="id"/>
+        <id property="id" column="id"/> <!--主键-->
         <result column="room_id" property="roomId"/>
-        <collection property="graphInfoList" select="selectGraphListByroomId" column="room_id" autoMapping="true"/>
+        <collection property="graphInfoList" select="selectGraphListByRoomId" column="room_id"
+                    autoMapping="true"/>
     </resultMap>
 
-    <select id="pageHistoryItmeByUserId" resultMap="HistoryItemVoMap">
-        select
-            bh.id,
-            bh.user_id,bh.browse_time,
+    <select id="pageHistoryItemByUserId" resultMap="HistoryItemVoMap">
+        select bh.id,
+               bh.user_id,
+               bh.browse_time,
                bh.room_id,
-            ri.room_number,ri.rent,
-            ai.`name` apartment_name,ai.province_name,
-            ai.city_name,ai.district_name
+               ri.room_number,
+               ri.rent,
+               ai.`name` apartment_name,
+               ai.province_name,
+               ai.city_name,
+               ai.district_name
         from browsing_history as bh
                  left join room_info as ri
-                           on bh.room_id=ri.id and ri.is_deleted = 0
+                           on bh.room_id = ri.id and ri.is_deleted = 0
                  left join apartment_info as ai
-                           on ri.apartment_id=ai.id and ai.is_deleted = 0
-        WHERE
-             bh.is_deleted = 0 and bh.user_id=#{userId}
+                           on ri.apartment_id = ai.id and ai.is_deleted = 0
+        WHERE bh.is_deleted = 0
+          and bh.user_id = #{userId}
         order by browse_time desc
     </select>
 
-    <select id="selectGraphListByroomId" resultType="com.springbootProject.lease.model.entity.GraphInfo">
-        SELECT id, `name`,url,item_type,item_id from graph_info where item_type=2 and item_id=#{room_id}
+    <select id="selectGraphListByRoomId" resultType="com.springbootProject.lease.model.entity.GraphInfo">
+        SELECT id, `name`, url, item_type, item_id
+        from graph_info
+        where item_type = 2
+          and item_id = #{room_id}
     </select>
 </mapper>

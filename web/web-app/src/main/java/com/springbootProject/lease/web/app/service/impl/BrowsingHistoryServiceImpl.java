@@ -14,7 +14,7 @@ import jakarta.annotation.Resource;
 import java.util.Date;
 
 /**
-* @author 86183
+* @author BobShen
 * @description 针对表【browsing_history(浏览历史)】的数据库操作Service实现
 * @createDate 2024-06-18 22:50:27
 */

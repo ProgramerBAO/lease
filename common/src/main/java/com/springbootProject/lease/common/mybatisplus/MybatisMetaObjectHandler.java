@@ -10,12 +10,12 @@ import java.util.Date;
 public class MybatisMetaObjectHandler implements MetaObjectHandler{
 
     @Override
-    public void insertFill(MetaObject metaObject) {
+    public void insertFill(MetaObject metaObject) {//插入时填充
         this.strictInsertFill(metaObject, "createTime", Date.class, new Date());
     }
 
     @Override
-    public void updateFill(MetaObject metaObject) {
+    public void updateFill(MetaObject metaObject) {//更新时填充
         this.strictUpdateFill(metaObject, "updateTime", Date.class, new Date());
     }
 
